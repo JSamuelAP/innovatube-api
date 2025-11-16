@@ -1,0 +1,54 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+out/
+lib/
+*.tsbuildinfo
+
+# TypeScript compiled files
+*.js
+*.js.map
+
+# Production
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage/
+.nyc_output/
+jest-cache/
+jest.config.ts.build/
+
+# Editor and OS
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
+
+# Package manager / caches
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/patches
+.pnpm-store/
+
+# Misc caches
+.cache/
+parcel-cache/
+.next/
+out/
