@@ -9,7 +9,7 @@ const signup = async (req: Request, res: Response) => {
   const { name, lastName, username, email, password } = req.body;
   const user: CreateUserDTO = {
     name,
-    lastName,
+    last_name: lastName,
     username,
     email,
     password,
@@ -19,8 +19,8 @@ const signup = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
-  const user = await authService.login({ username, email, password });
+  const { identifier, password } = req.body;
+  const user = await authService.login({ identifier, password });
   res.status(200).json(formatSuccessResponse(200, 'User logged successfully', user));
 };
 

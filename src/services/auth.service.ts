@@ -17,23 +17,23 @@ export class AuthService {
 
     const passwordHash = await this.generatePasswordHash(user.password);
     const createdUser = await this.userRepository.create({ ...user, password: passwordHash });
-    if (createdUser) {
-      const { id, name, lastName, username, email } = createdUser;
-      return {
-        id,
-        name,
-        lastName,
-        username,
-        email,
-      };
-    } else {
+    if (!createdUser) {
       throw new AppError('An error occurred while registering the user', 500);
     }
+
+    const { id, name, lastName, username, email } = createdUser;
+    return {
+      id,
+      name,
+      lastName,
+      username,
+      email,
+    };
   }
 
   // TODO: return jwt
   public async login(credentials: CredentialsUserDTO): Promise<ResponseUserDTO> {
-    const existingUser = await this.userRepository.findByEmailOrUsername(credentials.username, credentials.email);
+    const existingUser = await this.userRepository.findByLoginIdentifier(credentials.identifier);
     if (!existingUser) {
       throw new AppError('Invalid email, username or password', 404);
     }

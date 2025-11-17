@@ -9,6 +9,6 @@ export type User = {
 
 export type ResponseUserDTO = Omit<User, 'passwordHash'>;
 
-export type CreateUserDTO = Omit<User, 'id' | 'passwordHash'> & { password: string };
+export type CreateUserDTO = Omit<User, 'id' | 'passwordHash' | 'lastName'> & { password: string; last_name: string };
 
-export type CredentialsUserDTO = Pick<User, 'username' | 'email'> & { password: string };
+export type CredentialsUserDTO = { identifier: string; password: string };
