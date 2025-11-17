@@ -1,4 +1,4 @@
-import type { UserFavorite, Video } from '../types';
+import type { Video } from '../types';
 
 export class VideoRepository {
   public async findById(id: string): Promise<Video | null> {
@@ -37,26 +37,5 @@ export class VideoRepository {
         thumbnailUrl: 'image.png',
       },
     ];
-  }
-
-  public async findFavorites(userId: number): Promise<UserFavorite[]> {
-    return [
-      {
-        userId: userId,
-        videoId: 'QAshpZNMyCE',
-      },
-      {
-        userId: userId,
-        videoId: 'SAshpHnmYce',
-      },
-    ];
-  }
-
-  public async createUserFavorite(userFavorite: UserFavorite): Promise<UserFavorite | null> {
-    return userFavorite;
-  }
-
-  public async deleteUserFavorite(userFavorite: UserFavorite): Promise<boolean> {
-    return true;
   }
 }
