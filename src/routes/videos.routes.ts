@@ -1,13 +1,15 @@
 import { Router } from 'express';
 
+import videoController from '../controllers/video.controller';
+
 const router = Router();
 
-router.get('/', () => {});
+router.get('/', videoController.search);
 
-router.get('/favorites', () => {});
+router.get('/favorites', videoController.getFavorites);
 
-router.post('/favorites', () => {});
+router.post('/:id/favorite', videoController.markFavorite);
 
-router.delete('/favorites', () => {});
+router.delete('/:id/favorite', videoController.unmarkFavorite);
 
 export default router;
