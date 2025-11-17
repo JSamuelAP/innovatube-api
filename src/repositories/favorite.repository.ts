@@ -9,7 +9,7 @@ export class FavoriteRepository {
       },
       {
         userId: userId,
-        videoId: 'SAshpHnmYce',
+        videoId: 'caxiX38DK68',
       },
     ];
   }

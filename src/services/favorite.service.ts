@@ -1,18 +1,18 @@
 import type { FavoriteRepository } from '../repositories/favorite.repository';
 import type { UserRepository } from '../repositories/user.repository';
-import type { VideoRepository } from '../repositories/video.respository';
+import type { VideoRepository } from '../repositories/video.repository';
 import type { UserFavorite, Video } from '../types';
 import { AppError } from '../utils/AppError';
 
 export class FavoriteService {
   constructor(
-    private readonly favoriteRespository: FavoriteRepository,
+    private readonly favoriteRepository: FavoriteRepository,
     private readonly userRepository: UserRepository,
     private readonly videoRepository: VideoRepository,
   ) {}
 
   public async getFavorites(userId: number): Promise<Video[]> {
-    const favorites = await this.favoriteRespository.findFavorites(userId);
+    const favorites = await this.favoriteRepository.findFavorites(userId);
     const ids = favorites.map((favorite) => favorite.videoId);
     return await this.videoRepository.findByMultipleIds(...ids);
   }
@@ -28,7 +28,7 @@ export class FavoriteService {
       throw new AppError(`No video with id '${userFavorite.videoId}' was found`, 404);
     }
 
-    const userFavoriteCreated = await this.favoriteRespository.createUserFavorite(userFavorite);
+    const userFavoriteCreated = await this.favoriteRepository.createUserFavorite(userFavorite);
     if (!userFavoriteCreated) {
       throw new AppError('An error occurred while marking the video as a favorite', 500);
     }
@@ -36,8 +36,8 @@ export class FavoriteService {
     return userFavoriteCreated;
   }
 
-  public async unmarkAsFavorito(userFavorite: UserFavorite): Promise<boolean> {
-    const deleted = await this.favoriteRespository.deleteUserFavorite(userFavorite);
+  public async unmarkAsFavorite(userFavorite: UserFavorite): Promise<boolean> {
+    const deleted = await this.favoriteRepository.deleteUserFavorite(userFavorite);
     if (!deleted) {
       throw new AppError('An error occurred while unmarking the video as a favorite', 500);
     }

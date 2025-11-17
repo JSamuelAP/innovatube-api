@@ -31,7 +31,7 @@ const markFavorite = async (req: Request, res: Response) => {
 const unmarkFavorite = async (req: Request, res: Response) => {
   const videoId = req.params.id as string;
   // TODO: get userId from jwt
-  await favoriteService.unmarkAsFavorito({ userId: 1, videoId });
+  await favoriteService.unmarkAsFavorite({ userId: 1, videoId });
   res.status(201).json(formatSuccessResponse(200, 'Video removed from favorites successfully', {}));
 };
 

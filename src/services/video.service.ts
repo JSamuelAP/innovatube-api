@@ -1,4 +1,4 @@
-import type { VideoRepository } from '../repositories/video.respository';
+import type { VideoRepository } from '../repositories/video.repository';
 import type { Video } from '../types';
 
 export class VideoService {
