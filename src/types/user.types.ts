@@ -7,7 +7,7 @@ export type User = {
   passwordHash: string;
 };
 
-export type ResponseUserDTO = Omit<User, 'passwordHash'>;
+export type ResponseUserDTO = Omit<User, 'passwordHash'> & { token?: string };
 
 export type CreateUserDTO = Omit<User, 'id' | 'passwordHash' | 'lastName'> & { password: string; last_name: string };
 

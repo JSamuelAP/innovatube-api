@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import type { CreateUserDTO, CredentialsUserDTO, ResponseUserDTO } from '../types';
 import type { UserRepository } from '../repositories/user.repository';
 import { AppError } from '../utils/AppError';
+import { generateToken } from '../utils/jwt';
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -34,22 +35,21 @@ export class AuthService {
   // TODO: return jwt
   public async login(credentials: CredentialsUserDTO): Promise<ResponseUserDTO> {
     const existingUser = await this.userRepository.findByLoginIdentifier(credentials.identifier);
-    if (!existingUser) {
+    if (!existingUser || !(await this.comparePasswords(credentials.password, existingUser.passwordHash))) {
       throw new AppError('Invalid email, username or password', 404);
     }
 
-    if (await this.comparePasswords(credentials.password, existingUser.passwordHash)) {
-      const { id, name, lastName, username, email } = existingUser;
-      return {
-        id,
-        name,
-        lastName,
-        username,
-        email,
-      };
-    } else {
-      throw new AppError('Invalid email, username or password', 404);
-    }
+    const token = generateToken({ id: existingUser.id });
+
+    const { id, name, lastName, username, email } = existingUser;
+    return {
+      id,
+      name,
+      lastName,
+      username,
+      email,
+      token,
+    };
   }
 
   private async generatePasswordHash(password: string): Promise<string> {

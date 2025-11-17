@@ -13,8 +13,7 @@ const search = async (req: Request, res: Response) => {
 };
 
 const getFavorites = async (req: Request, res: Response) => {
-  // TODO: get userId from jwt
-  const videos = await favoriteService.getFavorites(1);
+  const videos = await favoriteService.getFavorites(req.user!.id);
   if (videos.length === 0) {
     res.status(200).json(formatSuccessResponse(200, `There are no favorite videos yet`, []));
   }
@@ -23,15 +22,13 @@ const getFavorites = async (req: Request, res: Response) => {
 
 const markFavorite = async (req: Request, res: Response) => {
   const videoId = req.params.id as string;
-  // TODO: get userId from jwt
-  const favorite = await favoriteService.markAsFavorite({ userId: 1, videoId });
+  const favorite = await favoriteService.markAsFavorite({ userId: req.user!.id, videoId });
   res.status(201).json(formatSuccessResponse(200, 'Video saved as favorite successfully', favorite));
 };
 
 const unmarkFavorite = async (req: Request, res: Response) => {
   const videoId = req.params.id as string;
-  // TODO: get userId from jwt
-  await favoriteService.unmarkAsFavorite({ userId: 1, videoId });
+  await favoriteService.unmarkAsFavorite({ userId: req.user!.id, videoId });
   res.status(201).json(formatSuccessResponse(200, 'Video removed from favorites successfully', {}));
 };
 
