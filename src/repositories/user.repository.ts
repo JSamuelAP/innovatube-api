@@ -5,7 +5,7 @@ import type { SupabaseUserResponse } from '../types/supabase.types';
 export class UserRepository {
   public async findById(id: number): Promise<User | null> {
     const { data } = await supabaseClient.get<SupabaseUserResponse>('/user', {
-      params: { select: '*', deleted_at: 'is.null', id: id },
+      params: { select: '*', deleted_at: 'is.null', id: `eq.${id}` },
     });
 
     const user = data[0];
