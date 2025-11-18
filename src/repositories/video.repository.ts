@@ -15,7 +15,7 @@ export class VideoRepository {
     const video: Video = {
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
-      thumbnailUrl: item.snippet.thumbnails.default.url,
+      thumbnailUrl: item.snippet.thumbnails.medium.url,
     };
 
     return video;
@@ -30,7 +30,7 @@ export class VideoRepository {
     const videos: Video[] = data.items.map((item) => ({
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
-      thumbnailUrl: item.snippet.thumbnails.default.url,
+      thumbnailUrl: item.snippet.thumbnails.medium.url,
     }));
 
     return videos;
@@ -38,12 +38,12 @@ export class VideoRepository {
 
   public async findBySearchTerm(query: string): Promise<Video[]> {
     const { data } = await youtubeClient.get<YouTubeApiResponse>('/search', {
-      params: { q: query, type: 'video', part: 'snippet', maxResults: 10 },
+      params: { q: query, type: 'video', part: 'snippet', maxResults: 12 },
     });
     const videos: Video[] = data.items.map((item) => ({
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
-      thumbnailUrl: item.snippet.thumbnails.default.url,
+      thumbnailUrl: item.snippet.thumbnails.medium.url,
     }));
 
     return videos;

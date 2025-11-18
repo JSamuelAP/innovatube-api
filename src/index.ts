@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 
 import { env } from './config/env';
@@ -14,6 +15,7 @@ if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.use(cors());
 app.use(express.json());
 
 // public routes
