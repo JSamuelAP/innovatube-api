@@ -2,11 +2,18 @@ import type { Request, Response } from 'express';
 
 import type { CreateUserDTO } from '../types/user.types';
 
-import { authService } from '../services';
+import { authService, recaptchaService } from '../services';
 import { formatSuccessResponse } from '../utils/appResponse';
+import { AppError } from '../utils/AppError';
 
 const signup = async (req: Request, res: Response) => {
-  const { name, lastName, username, email, password } = req.body;
+  const { name, lastName, username, email, password, recaptchaToken } = req.body;
+
+  const isCaptchaValid = await recaptchaService.validateCaptcha(recaptchaToken);
+  if (!isCaptchaValid) {
+    throw new AppError('Invalid captcha', 400);
+  }
+
   const user: CreateUserDTO = {
     name,
     last_name: lastName,

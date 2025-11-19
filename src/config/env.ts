@@ -6,6 +6,8 @@ export const env = cleanEnv(process.env, {
   NODE_ENV: str({ choices: ['development', 'production'], default: 'development' }),
   JWT_SECRET: str(),
   JWT_EXPIRES_IN: num({ default: 21600 }),
+  RECAPTCHA_SECRET: str(),
+  RECAPTCHA_URL: url(),
   SUPABASE_API_URL: url(),
   SUPABASE_API_KEY: str(),
   YOUTUBE_API_URL: url(),

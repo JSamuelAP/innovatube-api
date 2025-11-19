@@ -4,3 +4,9 @@ export type HttpResponse = {
   message: string;
   data: object;
 };
+
+export type RecaptchaResponse = {
+  success: boolean;
+  challenge_ts: Date;
+  hostname: string;
+};
