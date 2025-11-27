@@ -7,4 +7,4 @@ import { VideoService } from './video.service';
 export const authService = new AuthService(userRepository);
 export const favoriteService = new FavoriteService(favoriteRepository, userRepository, videoRepository);
 export const recaptchaService = new RecaptchaService();
-export const videoService = new VideoService(videoRepository);
+export const videoService = new VideoService(videoRepository, favoriteRepository);

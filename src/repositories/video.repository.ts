@@ -16,6 +16,7 @@ export class VideoRepository {
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
       thumbnailUrl: item.snippet.thumbnails.medium.url,
+      isFavorite: false,
     };
 
     return video;
@@ -31,6 +32,7 @@ export class VideoRepository {
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
       thumbnailUrl: item.snippet.thumbnails.medium.url,
+      isFavorite: false,
     }));
 
     return videos;
@@ -44,6 +46,7 @@ export class VideoRepository {
       id: normalizeVideoID(item.id),
       title: item.snippet.title,
       thumbnailUrl: item.snippet.thumbnails.medium.url,
+      isFavorite: false,
     }));
 
     return videos;

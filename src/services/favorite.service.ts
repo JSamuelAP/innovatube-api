@@ -14,7 +14,9 @@ export class FavoriteService {
   public async getFavorites(userId: number): Promise<Video[]> {
     const favorites = await this.favoriteRepository.findFavorites(userId);
     const ids = favorites.map((favorite) => favorite.videoId);
-    return await this.videoRepository.findByMultipleIds(...ids);
+    const videos = await this.videoRepository.findByMultipleIds(...ids);
+
+    return videos.map((video) => ({ ...video, isFavorite: true }));
   }
 
   public async markAsFavorite(userFavorite: UserFavorite): Promise<UserFavorite> {

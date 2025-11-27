@@ -5,7 +5,7 @@ import { formatSuccessResponse } from '../utils/appResponse';
 
 const search = async (req: Request, res: Response) => {
   const query = req.query.q as string;
-  const videos = await videoService.getBySearchTerm(query);
+  const videos = await videoService.getBySearchTerm(query, req.user!.id);
   if (videos.length === 0) {
     res.status(200).json(formatSuccessResponse(200, `No videos of '${query}' were found`, []));
   }

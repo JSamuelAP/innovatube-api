@@ -16,6 +16,14 @@ export class FavoriteRepository {
     return favorites;
   }
 
+  public async findFavoriteIdsByUser(userId: number, videoIds: string[]): Promise<string[]> {
+    const { data } = await supabaseClient.get<SupabaseFavoriteResponse>('/user_favorite', {
+      params: { select: 'video_id', user_id: `eq.${userId}`, video_id: `in.(${videoIds.join(',')})` },
+    });
+
+    return data.map((favorite) => favorite.video_id);
+  }
+
   public async createUserFavorite(userFavorite: UserFavorite): Promise<UserFavorite | null> {
     const body = { user_id: userFavorite.userId, video_id: userFavorite.videoId };
     const { data } = await supabaseClient.post<SupabaseFavoriteResponse>('/user_favorite', body, {
